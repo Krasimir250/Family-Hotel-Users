@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Family Hotel M1 & M2</title>
+    <script
+      type="text/javascript"
+      src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"
+    ></script>
+    <script type="text/javascript" src="dist/pickmeup.min.js"></script>
+    <script type="text/javascript" src="dist/handleCounter.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/pickmeup.css" />
+    <link rel="stylesheet" type="text/css" href="css/handle-counter.min.css" />
+    <link rel="stylesheet" type="text/css" href="css/main.css" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans"
+      rel="stylesheet"
+    />
+    <link rel="shortcut icon" href="./images/logo.png" type="image/x-icon" />
+    <script type="text/javascript" src="dist/jquery.scrollUp.js"></script>
+
+    <script type="module" src="server/server.js"></script>
+    <script type="module" src="dist/demo.js"></script>
+  </head>
+
+  <body>
+    <header class="tm-header">
+      <nav class="tm-nav">
+        <div class="header-wrapper">
+          <img
+            class="tm-logo"
+            src="images/logo.png"
+            alt="Family Hotel M1 & M2"
+          />
+
+          <ul>
+            <li class="tm-list"><a href="index.html">Начало</a></li>
+            <li class="tm-list"><a href="explore.html">Разгледай </a></li>
+            <li class="tm-list"><a href="rooms.html">Стаи</a></li>
+            <li class="tm-list"><a href="bb.html">Резервации</a></li>
+            <li><a href="contact.html">Свържи се с нас</a></li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+
+    <section class="tm-main">
+      <p>Резервация</p>
+    </section>
+
+    <section class="tm-booking">
+      <form>
+        <div class="tm-page1">
+          <div class="tm-form1">
+            <input type="text" name="name" id="name" placeholder="Три имена" />
+            <input type="email" name="email" id="email" placeholder="E-mail" />
+            <input
+              type="tel"
+              name="number"
+              id="phoneNumber"
+              placeholder="Телефон"
+              value="+359"
+            />
+            <div class="switchDiv">
+              <p>Hotel M1</p>
+              <label class="switch">
+                <input type="checkbox" id="switchBut2" />
+                <span class="slider round"></span>
+              </label>
+              <p>Hotel M2</p>
+            </div>
+            <label for="rooms" id="inlinelable">Вид стая</label>
+            <select name="Rooms" id="typeRooms">
+              <option value="Апартамент за 4-ма">Апартамент за 4-ма</option>
+              <option value="Стая за 2-ма и 2-ен диван">
+                2-на стая с 2-ен диван
+              </option>
+              <option value="Стая за 2-ма и диван">Двойна стая с диван</option>
+              <option value="Стая за 3-ма">Стая за 3-ма</option>
+              <option value="Стая за 2-ма">Двойна стая</option>
+            </select>
+            <div class="switchDiv">
+              <p>All iclusive</p>
+              <label class="switch">
+                <input type="checkbox" id="switchBut1" />
+                <span class="slider round"></span>
+              </label>
+              <p>BH</p>
+            </div>
+            <div class="tm-num1" id="handleCounter1">
+              <label for="number1">Брой стаи</label><br />
+              <button
+                type="button"
+                id="minusBtn"
+                class="counter-minus btn btn-primary"
+              >
+                -
+              </button>
+              <input
+                type="text"
+                name="numberRooms"
+                id="numberRooms"
+                value="1"
+              />
+              <button
+                type="button"
+                id="plusBtn"
+                class="counter-plus btn btn-primary"
+              >
+                +
+              </button>
+            </div>
+            <div class="tm-num2" id="handleCounter2">
+              <label for="number2">Възрастни</label><br />
+              <button
+                type="button"
+                id="minusBtn"
+                class="counter-minus btn btn-primary"
+              >
+                -
+              </button>
+              <input
+                type="text"
+                name="numberPeople"
+                id="numberPeople"
+                value="1"
+              />
+              <button
+                type="button"
+                id="plusBtn"
+                class="counter-plus btn btn-primary"
+              >
+                +
+              </button>
+            </div>
+          </div>
+
+          <div class="vertical-line"></div>
+
+          <div class="tm-form2">
+            <div class="tm-cl">
+              <label for="date1" class="arrival"
+                >Дати на посещение от пристигане до освобождаване
+              </label>
+
+              <input
+                type="text"
+                name="date1"
+                class="range"
+                id="date"
+                readonly="readonly"
+              />
+
+              <input type="button" id="navigateBtn" value="Продължи" />
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="tm-page2">
+            <div class="tm-form1">
+              <div class="tm-num1" id="handleCounter1">
+                <label for="number1">Брой стаи</label><br />
+                <button
+                  type="button"
+                  id="minusBtn"
+                  class="counter-minus btn btn-primary"
+                >
+                  -
+                </button>
+                <input type="text" name="number1" id="rooms" value="1" />
+                <button
+                  type="button"
+                  id="plusBtn"
+                  class="counter-plus btn btn-primary"
+                >
+                  +
+                </button>
+              </div>
+              <div class="tm-num2" id="handleCounter1">
+                <label for="number1">Брой стаи</label><br />
+                <button
+                  type="button"
+                  id="minusBtn"
+                  class="counter-minus btn btn-primary"
+                >
+                  -
+                </button>
+                <input type="text" name="number1" id="rooms" value="1" />
+                <button
+                  type="button"
+                  id="plusBtn"
+                  class="counter-plus btn btn-primary"
+                >
+                  +
+                </button>
+              </div>
+            </div>
+
+            <div class="vertical-line"></div>
+
+            <div class="tm-form2">
+              <p>Цена: <span id="price">0</span> лв</p>
+
+              <p>
+                * При всяка резервация на стая трябва да се капарират 40% от
+                цената на резервацията.
+              </p>
+
+              <input type="button" id="navigateBtn" value="Назад" />
+            </div>
+          </div>
+        </div>
+      </form>
+    </section>
+
+    <footer class="tm-footer">
+      <div class="tm-us">
+        <p class="bold">За нас</p>
+        <p>
+          Ние сме част от веригата луксозни хотели. Ние осигуряваме луксозен
+          престой с различна стойност, които ще ви накарат да ни посещавате
+          отново и отново.
+        </p>
+      </div>
+
+      <div class="tm-address">
+        <p class="bold">Адрес</p>
+        <p>
+          ул. Стара планина №7 гр. Приморско<br />
+          Тел : (+359) 89 251 0008<br />
+          Email : hotelm1m2@gmail.com
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>
