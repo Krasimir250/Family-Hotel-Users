@@ -473,6 +473,7 @@
 .tm-booking form {
   display: flex;
   flex-wrap: nowrap;
+  overflow: hidden;
 }
 
 .tm-booking form .tm-page1,
@@ -480,7 +481,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  min-width: 100%;
+  min-width: 100vw;
+  transition: margin 0.5s;
 }
 
 .tm-form1,
@@ -580,20 +582,23 @@ textarea {
   margin: 5%;
 }
 
-.tm-num1,
-.tm-num2 {
+.tm-num {
   display: inline-block;
   max-width: 39%;
   width: 39%;
-  margin: 5%;
+  margin: 2% 5%;
 }
 
 #numberRooms,
-#numberPeople {
+#numberParents,
+#babes,
+#childrenFrom2To12,
+#childrenFrom12To16,
+#childrenMore16,
+#numberPets {
   width: 30%;
   padding: 3% 8%;
   margin-top: 5%;
-
   text-align: center;
 }
 

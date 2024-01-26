@@ -16,12 +16,37 @@ let switchBut2On = false;
 $(function ($) {
   $("#handleCounter1").handleCounter({
     minimum: 1,
-    maximize: 100,
+    maximize: 50,
   });
 
   $("#handleCounter2").handleCounter({
     minimum: 1,
-    maximize: 100,
+    maximize: 50,
+  });
+
+  $("#handleCounter3").handleCounter({
+    minimum: 0,
+    maximize: 50,
+  });
+
+  $("#handleCounter4").handleCounter({
+    minimum: 0,
+    maximize: 50,
+  });
+
+  $("#handleCounter5").handleCounter({
+    minimum: 0,
+    maximize: 50,
+  });
+
+  $("#handleCounter6").handleCounter({
+    minimum: 0,
+    maximize: 50,
+  });
+
+  $("#handleCounter7").handleCounter({
+    minimum: 0,
+    maximize: 50,
   });
 });
 
@@ -134,12 +159,43 @@ async function send() {
 }
 
 // Calculate price
-const caclulator = (sumForOne) => {
-  const price = document.getElementById("price");
+const caclulator = (sumForOne, tripDays) => {
+  const childrenFrom12To16 =
+    document.getElementById("childrenFrom12To16").value;
+  const childrenFrom2To12 = document.getElementById("childrenFrom2To12").value;
+  const childrenMore16 = document.getElementById("childrenMore16").value;
+  const numParents = document.getElementById("numberParents").value;
+  const numberPets = document.getElementById("numberPets").value;
   const numRooms = document.getElementById("numberRooms").value;
-  const numPeople = document.getElementById("numberPeople").value;
+  const babes = document.getElementById("babes").value;
+  const price = document.getElementById("price").value;
 
-  const sum = sumForOne * numPeople * numRooms;
+  let sum = 0;
+
+  if (childrenFrom2To12 - 1 > 0) {
+    sum += (childrenFrom2To12 - 1) * 30;
+  }
+
+  if (childrenFrom12To16 > 0) {
+    sum += 35 * childrenFrom12To16;
+  }
+
+  if (childrenMore16 > 0) {
+    sum += 0.8 * sumForOne * childrenMore16;
+  }
+
+  if (numParents === 1 && childrenFrom2To12 === 1) {
+    sum += sumForOne + sumForOne * 0.9;
+  }
+
+  if (numParents === 1 && childrenFrom2To12 === 2) {
+    sum += 2 * sumForOne;
+  }
+
+  sum +=
+    babes * tripDays * 5 +
+    numberPets * tripDays * 10 +
+    numParents * sumForOne * numRooms;
 
   price.textContent = sum;
   return sum;
@@ -212,7 +268,7 @@ const getInformationForPrice = () => {
       startDate.setDate(startDate.getDate() + 1);
     }
 
-    const fullPrice = caclulator(sumForOne);
+    caclulator(sumForOne, tripDays);
   }, 100);
 };
 
@@ -228,13 +284,19 @@ async function getDate() {
   const date = datte.split("    ");
   date.sort().pop();
 
-  const rooms = document.getElementById("numberRooms").value;
-  const people = document.getElementById("numberPeople").value;
+  const childrenFrom12To16 =
+    document.getElementById("childrenFrom12To16").value;
+  const childrenFrom2To12 = document.getElementById("childrenFrom2To12").value;
+  const childrenMore16 = document.getElementById("childrenMore16").value;
+  const parents = document.getElementById("numberParents").value;
+  const numberPets = document.getElementById("numberPets").value;
   const typeRoom = document.getElementById("typeRooms").value;
-  const name = document.getElementById("name").value;
-  const email = document.getElementById("email").value;
+  const babes = document.getElementById("numberBabes").value;
+  const rooms = document.getElementById("numberRooms").value;
   const phTel = document.getElementById("phoneNumber").value;
   const price = document.getElementById("price").textContent;
+  const email = document.getElementById("email").value;
+  const name = document.getElementById("name").value;
 
   if (!regexForUserName.test(name)) {
     alert("Именто ви е невалидно!");
@@ -251,20 +313,27 @@ async function getDate() {
     return;
   }
 
-  await sendReservation({
-    rooms,
-    people,
-    typeRoom,
+  const obj = {
     name,
-    email,
-    phTel,
     date,
+    rooms,
+    email,
     price,
+    phTel,
+    babes,
+    parents,
+    typeRoom,
+    numberPets,
+    childrenMore16,
+    childrenFrom2To12,
+    childrenFrom12To16,
     downPayment: false,
-    typeRes: switchBut1On ? "HB" : "All inclusive",
-    inHotel: switchBut2On ? "M2" : "M1",
     createDate: new Date(),
-  });
+    inHotel: switchBut2On ? "M2" : "M1",
+    typeRes: switchBut1On ? "HB" : "All inclusive",
+  };
+
+  await sendReservation(obj);
 
   window.location.href = "index.html";
 }
