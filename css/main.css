@@ -591,7 +591,7 @@ textarea {
 
 #numberRooms,
 #numberParents,
-#babes,
+#numberBabes,
 #childrenFrom2To12,
 #childrenFrom12To16,
 #childrenMore16,
@@ -621,8 +621,8 @@ input[type="button"] {
   border: 1px solid #fff;
 }
 
-#navigateBtn {
-  margin-left: 70%;
+#navigateBtn,
+#sendReservationBtn {
   cursor: pointer;
 }
 
@@ -775,4 +775,13 @@ input:checked + .slider:before {
 .room .slick-track div img {
   width: 100%;
   object-fit: cover;
+}
+
+.form2Btns {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.form2Btns input {
+  margin: 0 10px;
 }

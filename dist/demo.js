@@ -4,9 +4,10 @@ const navigateBtns = document.querySelectorAll("#navigateBtn");
 const sendBtn2 = document.querySelector("#sub2");
 const switchBut1 = document.querySelector("#switchBut1");
 const switchBut2 = document.querySelector("#switchBut2");
-const minusBtn = document.querySelector("#minusBtn");
-const plusBtn = document.querySelector("#plusBtn");
+const minusBtns = document.querySelectorAll(".counter-minus");
+const plusBtns = document.querySelectorAll(".counter-plus");
 const dateClicker = document.querySelector("#date");
+const sendReservationBtn = document.querySelector("#sendReservationBtn");
 
 let switchPage = false;
 let switchBut1On = false;
@@ -167,8 +168,8 @@ const caclulator = (sumForOne, tripDays) => {
   const numParents = document.getElementById("numberParents").value;
   const numberPets = document.getElementById("numberPets").value;
   const numRooms = document.getElementById("numberRooms").value;
-  const babes = document.getElementById("babes").value;
-  const price = document.getElementById("price").value;
+  const price = document.getElementById("price");
+  const babes = document.getElementById("numberBabes").value;
 
   let sum = 0;
 
@@ -291,7 +292,7 @@ async function getDate() {
   const parents = document.getElementById("numberParents").value;
   const numberPets = document.getElementById("numberPets").value;
   const typeRoom = document.getElementById("typeRooms").value;
-  const babes = document.getElementById("numberBabes").value;
+  const babes = document?.getElementById("numberBabes").value;
   const rooms = document.getElementById("numberRooms").value;
   const phTel = document.getElementById("phoneNumber").value;
   const price = document.getElementById("price").textContent;
@@ -388,14 +389,22 @@ switchBut2?.addEventListener("click", function () {
   chooseHotel(switchBut2On);
 });
 
-minusBtn?.addEventListener("click", function () {
-  getInformationForPrice();
+minusBtns.forEach((minusBtn) => {
+  minusBtn?.addEventListener("click", function () {
+    getInformationForPrice();
+  });
 });
 
-plusBtn?.addEventListener("click", function () {
-  getInformationForPrice();
+plusBtns.forEach((plusBtn) => {
+  plusBtn?.addEventListener("click", function () {
+    getInformationForPrice();
+  });
 });
 
 dateClicker?.addEventListener("blur", function () {
   getInformationForPrice();
+});
+
+sendReservationBtn?.addEventListener("click", function () {
+  getDate();
 });
