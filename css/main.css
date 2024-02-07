@@ -76,7 +76,6 @@
   width: 100%;
   height: 700px;
   display: block;
-  /* Safari 6.0 - 9.0 */
 }
 
 .bold {
@@ -90,6 +89,7 @@
 }
 
 .tm-slidertext {
+  opacity: 0.8;
   position: absolute;
   top: 30%;
   left: 50%;
@@ -373,8 +373,8 @@
   object-fit: cover;
   display: block;
   float: left;
-  max-width: 60%;
-  width: 60%;
+  max-width: 55%;
+  width: 55%;
   height: 550px;
 }
 
@@ -382,13 +382,12 @@
   object-fit: cover;
   display: block;
   float: right;
-  max-width: 60%;
-  width: 60%;
+  max-width: 55%;
+  width: 55%;
   height: 550px;
 }
 
 .tm-expsection::after {
-  content: ".";
   font-size: xx-small;
   visibility: hidden;
 }
@@ -663,7 +662,6 @@ input[type="button"]:focus {
   display: flex;
   align-items: center;
   justify-content: space-evenly;
-  width: 80%;
 }
 
 .left,

@@ -1,7 +1,7 @@
 import { sendReservation, sendMessage } from "../server/server.js";
 
 const navigateBtns = document.querySelectorAll("#navigateBtn");
-const sendBtn2 = document.querySelector("#sub2");
+const sendBtn2 = document.querySelector("#sendMess");
 const switchBut1 = document.querySelector("#switchBut1");
 const switchBut2 = document.querySelector("#switchBut2");
 const minusBtns = document.querySelectorAll(".counter-minus");
@@ -173,6 +173,10 @@ const caclulator = (sumForOne, tripDays) => {
 
   let sum = 0;
 
+  if (numParents === 1) {
+    sum += 0.8 * sumForOne;
+  }
+
   if (childrenFrom2To12 - 1 > 0) {
     sum += (childrenFrom2To12 - 1) * 30;
   }
@@ -194,9 +198,9 @@ const caclulator = (sumForOne, tripDays) => {
   }
 
   sum +=
-    babes * tripDays * 5 +
-    numberPets * tripDays * 10 +
-    numParents * sumForOne * numRooms;
+    babes * tripDays * 5 + numberPets * tripDays * 10 + numParents > 1
+      ? numParents * sumForOne * numRooms
+      : 0;
 
   price.textContent = sum;
   return sum;

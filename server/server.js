@@ -8,6 +8,8 @@ import {
   updateDoc,
   collection,
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+import { httpsCallable } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-functions.js";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -47,5 +49,4 @@ async function sendMessage(information) {
     console.log(error);
   }
 }
-
 export { sendReservation, sendMessage };
