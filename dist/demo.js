@@ -12,6 +12,7 @@ const sendReservationBtn = document.querySelector("#sendReservationBtn");
 let switchPage = false;
 let switchBut1On = false;
 let switchBut2On = false;
+
 //for spinner buttons
 
 $(function ($) {
@@ -173,8 +174,10 @@ const caclulator = (sumForOne, tripDays) => {
 
   let sum = 0;
 
-  if (numParents === 1) {
-    sum += 0.8 * sumForOne;
+  if (numParents == 1) {
+    sum += 0.8 * sumForOne * numRooms;
+  } else {
+    sum += numParents * sumForOne * numRooms;
   }
 
   if (childrenFrom2To12 - 1 > 0) {
@@ -197,10 +200,7 @@ const caclulator = (sumForOne, tripDays) => {
     sum += 2 * sumForOne;
   }
 
-  sum +=
-    babes * tripDays * 5 + numberPets * tripDays * 10 + numParents > 1
-      ? numParents * sumForOne * numRooms
-      : 0;
+  sum += babes * tripDays * 5 + numberPets * tripDays * 10;
 
   price.textContent = sum;
   return sum;
