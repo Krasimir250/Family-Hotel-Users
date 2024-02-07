@@ -10,6 +10,28 @@
   font-family: "Open Sans", sans-serif;
 }
 
+.tm-table {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 50px;
+}
+
+.tm-table table {
+  width: 60%;
+  border: 1px solid black;
+}
+
+.tm-table tr {
+  font-size: 28px;
+  text-align: center;
+}
+
+th,
+td {
+  padding: 10px 0;
+  border-bottom: 1px solid black;
+}
+
 .tm-header {
   background: var(--colorForHeaderAndFooter);
   display: block;
