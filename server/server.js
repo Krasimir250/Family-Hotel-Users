@@ -5,6 +5,8 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebas
 import {
   getFirestore,
   addDoc,
+  doc,
+  getDoc,
   updateDoc,
   collection,
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
@@ -49,4 +51,31 @@ async function sendMessage(information) {
     console.log(error);
   }
 }
-export { sendReservation, sendMessage };
+
+async function checkHaveThisTypeRoom(hotel, typeRoom) {
+  try {
+    const chooseTypeRoom = {
+      "Апартамент за 4-ма": "quadrupleApartment",
+      "Апартамент за 3-ма": "quadrupleApartment",
+      "Стая за 2-ма и 2-ен диван": "doubleRoomWithDoubleSofa",
+      "Стая за 2-ма и диван": "doubleRoomWithSofa",
+      "Стая за 3-ма": "tripleApartment",
+      "Стая за 2-ма": "doubleRoom",
+    };
+    const q = doc(FIREBASE_DB, "rooms", `Hotel ${hotel}`);
+    const data = await getDoc(q);
+    const information = data.data();
+    const room = chooseTypeRoom[typeRoom];
+    const numberOfRoom = information[room];
+
+    if (numberOfRoom !== 0) {
+      await updateDoc(q, { [room]: numberOfRoom - 1 });
+      return false;
+    } else {
+      return true;
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}
+export { sendReservation, sendMessage, checkHaveThisTypeRoom };

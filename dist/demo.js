@@ -1,4 +1,8 @@
-import { sendReservation, sendMessage } from "../server/server.js";
+import {
+  sendReservation,
+  sendMessage,
+  checkHaveThisTypeRoom,
+} from "../server/server.js";
 
 const navigateBtns = document.querySelectorAll("#navigateBtn");
 const sendBtn2 = document.querySelector("#sendMess");
@@ -315,6 +319,13 @@ async function getDate() {
 
   if (!regexForPhone.test(phTel)) {
     alert("Номера ви е невалиден!");
+    return;
+  }
+
+  if (await checkHaveThisTypeRoom(switchBut2On ? "M2" : "M1", typeRoom)) {
+    alert(
+      "Съжаляваме, но нямаме свободна стая от този вид. Моля изберете друг вид или се свържете с нас."
+    );
     return;
   }
 
