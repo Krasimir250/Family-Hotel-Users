@@ -5,10 +5,11 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebas
 import {
   getFirestore,
   addDoc,
-  doc,
-  getDoc,
   updateDoc,
   collection,
+  where,
+  query,
+  getDocs,
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
 import { httpsCallable } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-functions.js";
@@ -52,30 +53,49 @@ async function sendMessage(information) {
   }
 }
 
-async function checkHaveThisTypeRoom(hotel, typeRoom) {
-  try {
-    const chooseTypeRoom = {
-      "Апартамент за 4-ма": "quadrupleApartment",
-      "Апартамент за 3-ма": "quadrupleApartment",
-      "Стая за 2-ма и 2-ен диван": "doubleRoomWithDoubleSofa",
-      "Стая за 2-ма и диван": "doubleRoomWithSofa",
-      "Стая за 3-ма": "tripleApartment",
-      "Стая за 2-ма": "doubleRoom",
-    };
-    const q = doc(FIREBASE_DB, "rooms", `Hotel ${hotel}`);
-    const data = await getDoc(q);
-    const information = data.data();
-    const room = chooseTypeRoom[typeRoom];
-    const numberOfRoom = information[room];
+// Example usage:
+async function checkRoomFree(startDate, endDate, roomType, inHotel) {
+  const reservationsRef = collection(FIREBASE_DB, "reservations");
 
-    if (numberOfRoom !== 0) {
-      await updateDoc(q, { [room]: numberOfRoom - 1 });
-      return false;
-    } else {
-      return true;
-    }
-  } catch (error) {
-    console.log(error);
-  }
+  const q = query(
+    reservationsRef,
+    where("typeRoom", "==", roomType),
+    where("inHotel", "==", inHotel)
+  );
+
+  const docs = await getDocs(q);
+
+  const reservations = [];
+
+  docs.forEach((doc) => reservations.push(doc.data()));
+
+  const conflicts = reservations.filter((res) => {
+    return (
+      startDate <= res.endDate.toDate() && endDate >= res.startDate.toDate()
+    );
+  });
+
+  console.log(conflicts);
+
+  const rooms = {
+    M1: {
+      "Апартамент за 4-ма": 2,
+      "Стая за 2-ма и 2-ен диван": 1,
+      "Стая за 2-ма и диван": 1,
+      "Стая за 3-ма": 1,
+      "Стая за 2-ма": 1,
+    },
+    M2: {
+      "Апартамент за 3-ма": 1,
+      "Апартамент за 4-ма": 1,
+      "Стая за 2-ма и 2-ен диван": 1,
+      "Стая за 2-ма и диван": 1,
+      "Стая за 2-ма": 1,
+    },
+  };
+
+  console.log(rooms[inHotel][roomType]);
+  return conflicts.length <= rooms[inHotel][roomType];
 }
-export { sendReservation, sendMessage, checkHaveThisTypeRoom };
+
+export { sendReservation, sendMessage, checkRoomFree };

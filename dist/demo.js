@@ -1,7 +1,7 @@
 import {
   sendReservation,
   sendMessage,
-  checkHaveThisTypeRoom,
+  checkRoomFree,
 } from "../server/server.js";
 
 const navigateBtns = document.querySelectorAll("#navigateBtn");
@@ -252,7 +252,6 @@ const getInformationForPrice = () => {
       const start = new Date(startDate);
       const end = new Date(endDate);
       const target = new Date(targetDate);
-
       return target >= start && target <= end;
     }
 
@@ -290,8 +289,35 @@ async function getDate() {
 
   // For date
   const datte = document.getElementById("date").value;
+
   const date = datte.split("    ");
   date.sort().pop();
+
+  const [segmentOne, segmentTwo] = datte.split("    до    ");
+
+  const [startDay, startMonth, startYear] = segmentOne.split(" ");
+  const [endDay, endMonth, endYear] = segmentTwo.split(" ");
+
+  const shortMount = [
+    "Ян",
+    "Фев",
+    "Мар",
+    "Апр",
+    "Май",
+    "Юн",
+    "Юл",
+    "Авг",
+    "Сеп",
+    "Окт",
+    "Ное",
+    "Дек",
+  ];
+
+  const startMonthNum = shortMount.indexOf(startMonth) + 1;
+  const endMonthNum = shortMount.indexOf(endMonth) + 1;
+
+  const startDate = new Date(`20${startYear}-${startMonthNum}-${startDay}`);
+  const endDate = new Date(`20${endYear}-${endMonthNum}-${endDay}`);
 
   const childrenFrom12To16 =
     document.getElementById("childrenFrom12To16").value;
@@ -322,13 +348,6 @@ async function getDate() {
     return;
   }
 
-  if (await checkHaveThisTypeRoom(switchBut2On ? "M2" : "M1", typeRoom)) {
-    alert(
-      "Съжаляваме, но нямаме свободна стая от този вид. Моля изберете друг вид или се свържете с нас."
-    );
-    return;
-  }
-
   const obj = {
     name,
     date,
@@ -344,10 +363,24 @@ async function getDate() {
     childrenFrom2To12,
     childrenFrom12To16,
     downPayment: false,
+    startDate,
+    endDate,
     createDate: new Date(),
     inHotel: switchBut2On ? "M2" : "M1",
     typeRes: switchBut1On ? "HB" : "All inclusive",
   };
+
+  const isFree = await checkRoomFree(
+    startDate,
+    endDate,
+    typeRoom,
+    switchBut2On ? "M2" : "M1"
+  );
+
+  if (!isFree) {
+    alert("Няма свободни стаи от този тип за тази дата.");
+    return;
+  }
 
   await sendReservation(obj);
 
