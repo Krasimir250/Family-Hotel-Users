@@ -12,10 +12,13 @@ const minusBtns = document.querySelectorAll(".counter-minus");
 const plusBtns = document.querySelectorAll(".counter-plus");
 const dateClicker = document.querySelector("#date");
 const sendReservationBtn = document.querySelector("#sendReservationBtn");
+const hamburgerBtn = document.querySelectorAll(".hamburgerBtn");
+const hamburgerMenu = document.querySelector(".tm-hamburger-container");
 
 let switchPage = false;
 let switchBut1On = false;
 let switchBut2On = false;
+let isOpenHamburger = false;
 
 //for spinner buttons
 
@@ -384,7 +387,9 @@ async function getDate() {
 
   await sendReservation(obj);
 
-  window.location.href = "index.html";
+  document.cookie = "isReservation = true; path=/";
+
+  window.location.href = "information.html";
 }
 
 // Change page of reservation
@@ -398,6 +403,20 @@ navigateBtns.forEach((navigateBtn) => {
       : (page.style.marginLeft = "-100%");
 
     switchPage = !switchPage;
+  });
+});
+
+hamburgerBtn.forEach((btn) => {
+  btn.addEventListener("click", () => {
+    if (!isOpenHamburger) {
+      btn.src = "/images/close.png";
+      isOpenHamburger = true;
+      hamburgerMenu.style.right = "0";
+    } else {
+      btn.src = "/images/hamburger.png";
+      isOpenHamburger = false;
+      hamburgerMenu.style.right = "-400px";
+    }
   });
 });
 
