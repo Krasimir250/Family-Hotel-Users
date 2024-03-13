@@ -337,7 +337,7 @@ async function getDate() {
   const name = document.getElementById("name").value;
 
   if (!regexForUserName.test(name)) {
-    alert("Именто ви е невалидно!");
+    alert("Името ви е невалидно!");
     return;
   }
 
